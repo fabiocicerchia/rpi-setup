@@ -1,13 +1,11 @@
 #!/bin/bash
 
-sudo su
-
 # INITIAL APTITUDE CLEANING
-apt-get update
+sudo apt-get update
 
 # PUPPET
-apt-get install puppet
-puppet apply puppet/manifest.pp
+sudo apt-get install puppet
+sudo puppet apply puppet/manifest.pp
  
 # Only allow admin users to use su
 #dpkg-statoverride --update --add root admin 4750 /bin/su
@@ -27,17 +25,15 @@ puppet apply puppet/manifest.pp
 #echo "order bind,hosts\nnospoof on" | tee -a /etc/host.conf
  
 # UPDATE SOFTWARE PACKAGES
-apt-get update
-apt-get upgrade
-apt-get autoremove
-apt-get autoclean
-apt-get clean 
+sudo apt-get update
+sudo apt-get upgrade
+sudo apt-get autoremove
+sudo apt-get autoclean
+sudo apt-get clean 
 
-exit
-
-cp utils/login.sh cp ~/
-cp utils/monitor_temp.sh cp ~/
-cp utils/temp.sh cp ~/
-cp utils/boot.sh cp ~/
-cp configs/.screenrc cp ~/
-cp configs/.bashrc cp ~/
+cp utils/login.sh ~/
+cp utils/monitor_temp.sh ~/
+cp utils/temp.sh ~/
+cp utils/boot.sh ~/
+cp configs/.screenrc ~/
+cp configs/.bashrc ~/
