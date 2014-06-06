@@ -1,8 +1,5 @@
 #!/bin/bash
 
-# INITIAL APTITUDE CLEANING
-sudo apt-get update
-
 # PUPPET
 sudo apt-get install puppet
 sudo puppet apply puppet/manifest.pp
