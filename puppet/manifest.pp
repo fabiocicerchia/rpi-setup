@@ -6,8 +6,8 @@ define setup_user ($fullname, $myuid, $hash, $shell, $groups) {
         uid     => "$myuid",
         comment => "$fullname",
         home    => "/home/$name",
-        shell   => $shell,
-        groups  => $groups
+        #shell   => $shell,
+        #groups  => $groups
     }
 
     exec { "$name homedir":
@@ -48,106 +48,106 @@ setup_user { "fabio":
 #    context => "/files/etc/sysctl.conf",
 #    changes => [
 #        # IP Spoofing protection
-#        "set net.ipv4.conf.all.rp_filter = 1",
-#        "set net.ipv4.conf.default.rp_filter = 1",
+#        "set net.ipv4.conf.all.rp_filter=1",
+#        "set net.ipv4.conf.default.rp_filter=1",
 #        # Ignore ICMP broadcast requests
-#        "set net.ipv4.icmp_echo_ignore_broadcasts = 1",
+#        "set net.ipv4.icmp_echo_ignore_broadcasts=1",
 #        # Disable source packet routing
-#        "set net.ipv4.conf.all.accept_source_route = 0",
-#        "set net.ipv6.conf.all.accept_source_route = 0",
-#        "set net.ipv4.conf.default.accept_source_route = 0",
-#        "set net.ipv6.conf.default.accept_source_route = 0",
+#        "set net.ipv4.conf.all.accept_source_route=0",
+#        "set net.ipv6.conf.all.accept_source_route=0",
+#        "set net.ipv4.conf.default.accept_source_route=0",
+#        "set net.ipv6.conf.default.accept_source_route=0",
 #        # Ignore send redirects
-#        "set net.ipv4.conf.all.send_redirects = 0",
-#        "set net.ipv4.conf.default.send_redirects = 0",
+#        "set net.ipv4.conf.all.send_redirects=0",
+#        "set net.ipv4.conf.default.send_redirects=0",
 #        # Block SYN attacks
-#        "set net.ipv4.tcp_syncookies = 1",
-#        "set net.ipv4.tcp_max_syn_backlog = 2048",
-#        "set net.ipv4.tcp_synack_retries = 2",
-#        "set net.ipv4.tcp_syn_retries = 5",
+#        "set net.ipv4.tcp_syncookies=1",
+#        "set net.ipv4.tcp_max_syn_backlog=2048",
+#        "set net.ipv4.tcp_synack_retries=2",
+#        "set net.ipv4.tcp_syn_retries=5",
 #        # Log Martians
-#        "set net.ipv4.conf.all.log_martians = 1",
-#        "set net.ipv4.icmp_ignore_bogus_error_responses = 1",
+#        "set net.ipv4.conf.all.log_martians=1",
+#        "set net.ipv4.icmp_ignore_bogus_error_responses=1",
 #        # Ignore ICMP redirects
-#        "set net.ipv4.conf.all.accept_redirects = 0",
-#        "set net.ipv6.conf.all.accept_redirects = 0",
-#        "set net.ipv4.conf.default.accept_redirects = 0",
-#        "set net.ipv6.conf.default.accept_redirects = 0",
+#        "set net.ipv4.conf.all.accept_redirects=0",
+#        "set net.ipv6.conf.all.accept_redirects=0",
+#        "set net.ipv4.conf.default.accept_redirects=0",
+#        "set net.ipv6.conf.default.accept_redirects=0",
 #        # Ignore Directed pings
-#        "set net.ipv4.icmp_echo_ignore_all = 1"
+#        "set net.ipv4.icmp_echo_ignore_all=1"
 #    ]
 #}
 # IP Spoofing protection
 exec { 'sysctl-net.ipv4.conf.all.rp_filter':
-    command => 'sysctl -w net.ipv4.conf.all.rp_filter = 1'
+    command => '/sbin/sysctl -w net.ipv4.conf.all.rp_filter=1'
 }
 exec { 'sysctl-net.ipv4.conf.default.rp_filter':
-    command => 'sysctl -w net.ipv4.conf.default.rp_filter = 1'
+    command => '/sbin/sysctl -w net.ipv4.conf.default.rp_filter=1'
 }
 # Ignore ICMP broadcast requests
 exec { 'sysctl-net.ipv4.icmp_echo_ignore_broadcasts':
-    command => 'sysctl -w net.ipv4.icmp_echo_ignore_broadcasts = 1'
+    command => '/sbin/sysctl -w net.ipv4.icmp_echo_ignore_broadcasts=1'
 }
 # Disable source packet routing
 exec { 'sysctl-net.ipv4.conf.all.accept_source_route':
-    command => 'sysctl -w net.ipv4.conf.all.accept_source_route = 0'
+    command => '/sbin/sysctl -w net.ipv4.conf.all.accept_source_route=0'
 }
 exec { 'sysctl-net.ipv6.conf.all.accept_source_route':
-    command => 'sysctl -w net.ipv6.conf.all.accept_source_route = 0'
+    command => '/sbin/sysctl -w net.ipv6.conf.all.accept_source_route=0'
 }
 exec { 'sysctl-net.ipv4.conf.default.accept_source_route':
-    command => 'sysctl -w net.ipv4.conf.default.accept_source_route = 0'
+    command => '/sbin/sysctl -w net.ipv4.conf.default.accept_source_route=0'
 }
 exec { 'sysctl-net.ipv6.conf.default.accept_source_route':
-    command => 'sysctl -w net.ipv6.conf.default.accept_source_route = 0'
+    command => '/sbin/sysctl -w net.ipv6.conf.default.accept_source_route=0'
 }
 # Ignore send redirects
 exec { 'sysctl-net.ipv4.conf.all.send_redirects':
-    command => 'sysctl -w net.ipv4.conf.all.send_redirects = 0'
+    command => '/sbin/sysctl -w net.ipv4.conf.all.send_redirects=0'
 }
 exec { 'sysctl-net.ipv4.conf.default.send_redirects':
-    command => 'sysctl -w net.ipv4.conf.default.send_redirects = 0'
+    command => '/sbin/sysctl -w net.ipv4.conf.default.send_redirects=0'
 }
 # Block SYN attacks
 exec { 'sysctl-net.ipv4.tcp_syncookies':
-    command => 'sysctl -w net.ipv4.tcp_syncookies = 1'
+    command => '/sbin/sysctl -w net.ipv4.tcp_syncookies=1'
 }
 exec { 'sysctl-net.ipv4.tcp_max_syn_backlog':
-    command => 'sysctl -w net.ipv4.tcp_max_syn_backlog = 2048'
+    command => '/sbin/sysctl -w net.ipv4.tcp_max_syn_backlog=2048'
 }
 exec { 'sysctl-net.ipv4.tcp_synack_retries':
-    command => 'sysctl -w net.ipv4.tcp_synack_retries = 2'
+    command => '/sbin/sysctl -w net.ipv4.tcp_synack_retries=2'
 }
 exec { 'sysctl-net.ipv4.tcp_syn_retries':
-    command => 'sysctl -w net.ipv4.tcp_syn_retries = 5'
+    command => '/sbin/sysctl -w net.ipv4.tcp_syn_retries=5'
 }
 # Log Martians
 exec { 'sysctl-net.ipv4.conf.all.log_martians':
-    command => 'sysctl -w net.ipv4.conf.all.log_martians = 1'
+    command => '/sbin/sysctl -w net.ipv4.conf.all.log_martians=1'
 }
 exec { 'sysctl-net.ipv4.icmp_ignore_bogus_error_responses':
-    command => 'sysctl -w net.ipv4.icmp_ignore_bogus_error_responses = 1'
+    command => '/sbin/sysctl -w net.ipv4.icmp_ignore_bogus_error_responses=1'
 }
 # Ignore ICMP redirects
 exec { 'sysctl-net.ipv4.conf.all.accept_redirects':
-    command => 'sysctl -w net.ipv4.conf.all.accept_redirects = 0'
+    command => '/sbin/sysctl -w net.ipv4.conf.all.accept_redirects=0'
 }
 exec { 'sysctl-net.ipv6.conf.all.accept_redirects':
-    command => 'sysctl -w net.ipv6.conf.all.accept_redirects = 0'
+    command => '/sbin/sysctl -w net.ipv6.conf.all.accept_redirects=0'
 }
 exec { 'sysctl-net.ipv4.conf.default.accept_redirects':
-    command => 'sysctl -w net.ipv4.conf.default.accept_redirects = 0'
+    command => '/sbin/sysctl -w net.ipv4.conf.default.accept_redirects=0'
 }
 exec { 'sysctl-net.ipv6.conf.default.accept_redirects':
-    command => 'sysctl -w net.ipv6.conf.default.accept_redirects = 0'
+    command => '/sbin/sysctl -w net.ipv6.conf.default.accept_redirects=0'
 }
 # Ignore Directed pings
 exec { 'sysctl-net.ipv4.icmp_echo_ignore_all':
-    command => 'sysctl -w net.ipv4.icmp_echo_ignore_all = 1'
+    command => '/sbin/sysctl -w net.ipv4.icmp_echo_ignore_all=1'
 }
 # Make it permanent
 exec { 'sysctl -p':
-    command => 'sysctl -p'
+    command => '/sbin/sysctl -p'
 }
 
 # UTILITY STUFF ################################################################
@@ -155,26 +155,26 @@ $utils = [ "byobu", "chkrootkit", "cron-apt", "curl", "dos2unix", "exuberant-cta
 package { $utils: ensure => "installed" }
 
 # MUNIN ########################################################################
-$munin = [ "munin ", "munin-node", "munin-plugins-extra" ]
+$munin = [ "munin", "munin-node", "munin-plugins-extra" ]
 package { $munin: ensure => "installed" }
 
 # UFW ########################################################################
 $ufw = [ "ufw" ]
 package { $ufw: ensure => "installed" }
 exec { 'ufw-default':
-    command => 'ufw default deny',
+    command => '/usr/sbin/ufw default deny',
     require => [ Package['ufw'] ]
 }
 exec { 'ufw-ssh':
-    command => 'ufw allow ssh',
+    command => '/usr/sbin/ufw allow ssh',
     require => [ Package['ufw'], Exec['ufw-default'] ]
 }
 exec { 'ufw-http':
-    command => 'ufw allow http',
+    command => '/usr/sbin/ufw allow http',
     require => [ Package['ufw'], Exec['ufw-default'] ]
 }
 exec { 'ufw-enable':
-    command => 'ufw enable',
+    command => '/usr/sbin/ufw enable',
     require => [ Exec['ufw-ssh'], Exec['ufw-http'] ]
 }
 
