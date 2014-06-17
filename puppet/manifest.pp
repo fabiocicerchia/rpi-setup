@@ -34,124 +34,52 @@ setup_user { "fabio":
 }
 
 # SSH Hardening - disable root login and change port ###########################
-#augeas { "sshd_config":
-# context => "/files/etc/ssh/sshd_config",
-#  changes => [
-#    "set PermitRootLogin no",
-#    "set DebianBanner no",
-#    "set Port 1986"
-#  ],
-#}
+augeas { "sshd_config":
+  context => "/etc/ssh/sshd_config",
+  changes => [
+    "set PermitRootLogin no",
+    "set DebianBanner no",
+    "set Port 1986"
+  ],
+}
 
 # Harden network with sysctl settings ##########################################
-#augeas { "sysctl":
-#    context => "/files/etc/sysctl.conf",
-#    changes => [
-#        # IP Spoofing protection
-#        "set net.ipv4.conf.all.rp_filter=1",
-#        "set net.ipv4.conf.default.rp_filter=1",
-#        # Ignore ICMP broadcast requests
-#        "set net.ipv4.icmp_echo_ignore_broadcasts=1",
-#        # Disable source packet routing
-#        "set net.ipv4.conf.all.accept_source_route=0",
-#        "set net.ipv6.conf.all.accept_source_route=0",
-#        "set net.ipv4.conf.default.accept_source_route=0",
-#        "set net.ipv6.conf.default.accept_source_route=0",
-#        # Ignore send redirects
-#        "set net.ipv4.conf.all.send_redirects=0",
-#        "set net.ipv4.conf.default.send_redirects=0",
-#        # Block SYN attacks
-#        "set net.ipv4.tcp_syncookies=1",
-#        "set net.ipv4.tcp_max_syn_backlog=2048",
-#        "set net.ipv4.tcp_synack_retries=2",
-#        "set net.ipv4.tcp_syn_retries=5",
-#        # Log Martians
-#        "set net.ipv4.conf.all.log_martians=1",
-#        "set net.ipv4.icmp_ignore_bogus_error_responses=1",
-#        # Ignore ICMP redirects
-#        "set net.ipv4.conf.all.accept_redirects=0",
-#        "set net.ipv6.conf.all.accept_redirects=0",
-#        "set net.ipv4.conf.default.accept_redirects=0",
-#        "set net.ipv6.conf.default.accept_redirects=0",
-#        # Ignore Directed pings
-#        "set net.ipv4.icmp_echo_ignore_all=1"
-#    ]
-#}
-# IP Spoofing protection
-exec { 'sysctl-net.ipv4.conf.all.rp_filter':
-    command => '/sbin/sysctl -w net.ipv4.conf.all.rp_filter=1'
-}
-exec { 'sysctl-net.ipv4.conf.default.rp_filter':
-    command => '/sbin/sysctl -w net.ipv4.conf.default.rp_filter=1'
-}
-# Ignore ICMP broadcast requests
-exec { 'sysctl-net.ipv4.icmp_echo_ignore_broadcasts':
-    command => '/sbin/sysctl -w net.ipv4.icmp_echo_ignore_broadcasts=1'
-}
-# Disable source packet routing
-exec { 'sysctl-net.ipv4.conf.all.accept_source_route':
-    command => '/sbin/sysctl -w net.ipv4.conf.all.accept_source_route=0'
-}
-exec { 'sysctl-net.ipv6.conf.all.accept_source_route':
-    command => '/sbin/sysctl -w net.ipv6.conf.all.accept_source_route=0'
-}
-exec { 'sysctl-net.ipv4.conf.default.accept_source_route':
-    command => '/sbin/sysctl -w net.ipv4.conf.default.accept_source_route=0'
-}
-exec { 'sysctl-net.ipv6.conf.default.accept_source_route':
-    command => '/sbin/sysctl -w net.ipv6.conf.default.accept_source_route=0'
-}
-# Ignore send redirects
-exec { 'sysctl-net.ipv4.conf.all.send_redirects':
-    command => '/sbin/sysctl -w net.ipv4.conf.all.send_redirects=0'
-}
-exec { 'sysctl-net.ipv4.conf.default.send_redirects':
-    command => '/sbin/sysctl -w net.ipv4.conf.default.send_redirects=0'
-}
-# Block SYN attacks
-exec { 'sysctl-net.ipv4.tcp_syncookies':
-    command => '/sbin/sysctl -w net.ipv4.tcp_syncookies=1'
-}
-exec { 'sysctl-net.ipv4.tcp_max_syn_backlog':
-    command => '/sbin/sysctl -w net.ipv4.tcp_max_syn_backlog=2048'
-}
-exec { 'sysctl-net.ipv4.tcp_synack_retries':
-    command => '/sbin/sysctl -w net.ipv4.tcp_synack_retries=2'
-}
-exec { 'sysctl-net.ipv4.tcp_syn_retries':
-    command => '/sbin/sysctl -w net.ipv4.tcp_syn_retries=5'
-}
-# Log Martians
-exec { 'sysctl-net.ipv4.conf.all.log_martians':
-    command => '/sbin/sysctl -w net.ipv4.conf.all.log_martians=1'
-}
-exec { 'sysctl-net.ipv4.icmp_ignore_bogus_error_responses':
-    command => '/sbin/sysctl -w net.ipv4.icmp_ignore_bogus_error_responses=1'
-}
-# Ignore ICMP redirects
-exec { 'sysctl-net.ipv4.conf.all.accept_redirects':
-    command => '/sbin/sysctl -w net.ipv4.conf.all.accept_redirects=0'
-}
-exec { 'sysctl-net.ipv6.conf.all.accept_redirects':
-    command => '/sbin/sysctl -w net.ipv6.conf.all.accept_redirects=0'
-}
-exec { 'sysctl-net.ipv4.conf.default.accept_redirects':
-    command => '/sbin/sysctl -w net.ipv4.conf.default.accept_redirects=0'
-}
-exec { 'sysctl-net.ipv6.conf.default.accept_redirects':
-    command => '/sbin/sysctl -w net.ipv6.conf.default.accept_redirects=0'
-}
-# Ignore Directed pings
-exec { 'sysctl-net.ipv4.icmp_echo_ignore_all':
-    command => '/sbin/sysctl -w net.ipv4.icmp_echo_ignore_all=1'
-}
-# Make it permanent
-exec { 'sysctl -p':
-    command => '/sbin/sysctl -p'
+augeas { "sysctl":
+    context => "/etc/sysctl.conf",
+    changes => [
+        # IP Spoofing protection
+        "set net.ipv4.conf.all.rp_filter=1",
+        "set net.ipv4.conf.default.rp_filter=1",
+        # Ignore ICMP broadcast requests
+        "set net.ipv4.icmp_echo_ignore_broadcasts=1",
+        # Disable source packet routing
+        "set net.ipv4.conf.all.accept_source_route=0",
+        #"set net.ipv6.conf.all.accept_source_route=0",
+        "set net.ipv4.conf.default.accept_source_route=0",
+        #"set net.ipv6.conf.default.accept_source_route=0",
+        # Ignore send redirects
+        "set net.ipv4.conf.all.send_redirects=0",
+        "set net.ipv4.conf.default.send_redirects=0",
+        # Block SYN attacks
+        "set net.ipv4.tcp_syncookies=1",
+        "set net.ipv4.tcp_max_syn_backlog=2048",
+        "set net.ipv4.tcp_synack_retries=2",
+        "set net.ipv4.tcp_syn_retries=5",
+        # Log Martians
+        "set net.ipv4.conf.all.log_martians=1",
+        "set net.ipv4.icmp_ignore_bogus_error_responses=1",
+        # Ignore ICMP redirects
+        "set net.ipv4.conf.all.accept_redirects=0",
+        #"set net.ipv6.conf.all.accept_redirects=0",
+        "set net.ipv4.conf.default.accept_redirects=0",
+        #"set net.ipv6.conf.default.accept_redirects=0",
+        # Ignore Directed pings
+        "set net.ipv4.icmp_echo_ignore_all=1"
+    ]
 }
 
 # UTILITY STUFF ################################################################
-$utils = [ "byobu", "chkrootkit", "cron-apt", "curl", "dos2unix", "exuberant-ctags", "fail2ban", "git", "htop", "lynx", "make", "puppet", "rkhunter", "sshguard", "vim" ]
+$utils = [ "chkrootkit", "cron-apt", "curl", "dos2unix", "exuberant-ctags", "fail2ban", "git", "htop", "lynx", "make", "puppet", "rkhunter", "sshguard", "ssmtp", "vim" ]
 package { $utils: ensure => "installed" }
 
 # MUNIN ########################################################################
